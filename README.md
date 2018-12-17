@@ -2,10 +2,10 @@
 
 Web app for search on Stack Exchange
 
-- request on API
+- make request on API
 - use flask
-- server rendering
-- results write in relational db
-- config.ini
-- results show on table
+- use server rendering
+-  write results in relational db
+- use config.ini
+-  show results on table
 
