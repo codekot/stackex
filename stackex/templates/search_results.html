@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h1>Запрос на тему {{ request }}</h1>
+<form action="">
+  <select name="items">
+    <option value="25">Отображать по 25</option>
+    <option value="50">Отображать по 50</option>
+    <option value="100">Отображать по 100</option>
+   </select>
+  <br><br>
+  <!--<input type="submit">-->
+</form>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Date/Time</th>
+      <th scope="col">Title</th>
+      <th scope="col">Link</th>
+    </tr>
+  </thead>
+  <tbody>
+  	{% for result in results %}
+  	<tr>
+  	  <td>{{ result.last_activity_date }}</td>
+      <td>{{ result.title }}</td>
+      <td>{{ result.link }}</td>
+	</tr>
+	{% endfor %}
+
+  </tbody>
+
+{% endblock  content %}

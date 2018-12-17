@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<form method="POST" action="">
+	{{ form.hidden_tag() }}
+   
+  <div class="form-group row">
+    <label for="request" class="col-sm-2 col-form-label">New Request</label>
+    <div class="col-sm-10">
+      <!--<input class="form-control" id="request" placeholder="Search Input">-->
+      {{ form.search(class="form-control", id="request", placeholder="Search Input") }}
+    </div>
+  </div>
+   <!--<button type="submit" class="btn btn-primary">Search</button>-->
+   {{ form.submit(class="btn btn-primary") }}
+</form>
+
+{% endblock  content %}
