@@ -8,10 +8,8 @@ config_file = "config.ini"
 
 exist = os.path.isfile(config_file)
 config = configparser.ConfigParser()
-print(1)
 
 if not exist:
-    print(2)
     print("Config file is not found")
     config["DEFAULT"] = {"SECRET_KEY": "we_dont_have_secrets", 
     "SQLALCHEMY_DATABASE_URI": 'sqlite:///site.db'}
