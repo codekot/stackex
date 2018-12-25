@@ -6,6 +6,6 @@ Web app for search on Stack Exchange
 - use flask (under construction)
 - use server rendering (under construction)
 -  write results in relational db (under construction)
-- use config.ini (under construction)
+- use config.ini (done)
 -  show results on table (done)
 
