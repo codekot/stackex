@@ -6,4 +6,7 @@ data = None
 with open(data_file, "r") as json_file:
     data = json.load(json_file)
 
-print(data)
+items = data['items']
+for item in items:
+    print(item['title'])
+    print(item["last_activity_date"])
