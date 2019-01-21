@@ -6,7 +6,7 @@ class User_request(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     req_name = db.Column(db.String(), unique=True, nullable=False)
-    req_results = db.relationship('RequestResult',
+    req_results = db.relationship('Request_result',
                                   backref="on_request", lazy=True)
 
     def __repr__(self):
