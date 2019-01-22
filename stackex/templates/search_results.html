@@ -24,7 +24,7 @@
   	<tr>
   	  <td>{{ result.last_activity_date }}</td>
       <td>{{ result.title }}</td>
-      <td>{{ result.link }}</td>
+      <td><a href="{{ result.link }}">{{ result.link }}</a></td>
 	</tr>
 	{% endfor %}
 

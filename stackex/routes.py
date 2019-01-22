@@ -62,7 +62,8 @@ def stack_ex():
 @app.route('/search_results')
 def search_results():
     r = request.args.get("req")
-    print(request)
-    new_results = results_2
+    #new_results = results_2
+    new_results = Request_result.query.all()
+    new_results = new_results[:25]
     return render_template('search_results.html',
                            results=new_results, request=r)
