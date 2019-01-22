@@ -23,4 +23,6 @@ class Request_result(db.Model):
                            nullable=False)
 
     def __repr__(self):
-        return f"Request_result('{self.title}', '{self.date}')"
+        return f"Request_result('{self.title}', \
+        '{self.last_activity_date}', \
+        '{self.link}'"
