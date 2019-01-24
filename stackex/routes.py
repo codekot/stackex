@@ -48,6 +48,7 @@ def req(url):
 
 @app.route('/')
 def home():
+    results = User_request.query.all()
     return render_template('home.html', results=results)
 
 

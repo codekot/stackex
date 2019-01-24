@@ -27,5 +27,5 @@ app.config['SQLALCHEMY_DATABASE_URI'] = default_config[
     'SQLALCHEMY_DATABASE_URI']
 db = SQLAlchemy(app)
 
-# to avoid circular reference this import put at the end
+# this import is intentionally put here to avoid circular reference 
 from stackex import routes
