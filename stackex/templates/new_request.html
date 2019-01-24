@@ -7,8 +7,19 @@
   <div class="form-group row">
     <label for="request" class="col-sm-2 col-form-label">New Request</label>
     <div class="col-sm-10">
-      <!--<input class="form-control" id="request" placeholder="Search Input">-->
-      {{ form.search(class="form-control", id="request", placeholder="Search Input") }}
+      {% if form.search.errors %}
+        {{ form.search(class="form-control is-invalid", id="request", placeholder="Search Input") }}
+        <div class="invalid-feedback">
+          {% for error in form.search.errors %}
+            <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+      {% else %}
+        {{ form.search(class="form-control", id="request", placeholder="Search Input") }}
+
+      {% endif %}
+      
+
     </div>
   </div>
    <!--<button type="submit" class="btn btn-primary">Search</button>-->

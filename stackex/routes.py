@@ -1,7 +1,8 @@
-from flask import render_template, redirect, url_for, request
+from flask import render_template, redirect, url_for, request, flash
 from stackex import app, db
 from stackex.models import User_request, Request_result
 from stackex.forms import NewRequestForm
+from stackex.funcs import stack_request
 
 results = [
     {
@@ -54,7 +55,7 @@ def home():
 def stack_ex():
     form = NewRequestForm()
     if form.validate_on_submit():
-        req_results = results
+        stack_request(form.search.data)
         return redirect(url_for('search_results', req=form.search.data))
     return render_template('new_request.html', title="New Request", form=form)
 
