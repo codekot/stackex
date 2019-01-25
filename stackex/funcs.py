@@ -1,9 +1,9 @@
 import json
 from datetime import datetime
 from stackex.models import User_request, Request_result
-#from stackex import db
+import requests
+from stackex import db
 
-#TASK: POPULATE DB
 
 def construct_list():
     data_file = 'search.json'
@@ -35,7 +35,32 @@ def populate(db):
     print("Database is populated")
 
 def stack_request(req):
-    pass
+    url = "https://api.stackexchange.com/2.2/search"
+    params = {
+        "order": "desc",
+        "sort": "activity",
+        "intitle": req,
+        "site": "stackoverflow"
+    }
+    r = requests.get(url, params=params)
+    data=r.json()
+    data=data['items']
+    print(data)
+    if not data:
+        return
+    u = User_request(id=1, date=datetime.utcnow(), req_name="java")
+    db.session.add(u)
+    request_id = User_request.query.filter_by(req_name=req).first().id
+    for datum in data:
+        rr = Request_result(id=item['question_id'],
+                            title=item['title'],
+                            last_activity_date=datetime.
+                                utcfromtimestamp(item["last_activity_date"],
+                            link=item["link"],
+                            request_id=request_id)
+        db.session.add(rr)
+    db.session.commit()
+    
 
 
 if __name__ == '__main__':

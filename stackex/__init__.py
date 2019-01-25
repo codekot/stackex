@@ -15,7 +15,7 @@ if not exist:
                          "SQLALCHEMY_DATABASE_URI": 'sqlite:///site.db'}
     with open(config_file, "w") as configfile:
         config.write(configfile)
-    print("Cofig file was created")
+    print("Config file was created")
     print("Please change secret key")
 
 config.read(config_file)
