@@ -35,6 +35,7 @@ def populate(db):
     print("Database is populated")
 
 def stack_request(req):
+    #global db
     url = "https://api.stackexchange.com/2.2/search"
     params = {
         "order": "desc",
@@ -48,16 +49,17 @@ def stack_request(req):
     print(data)
     if not data:
         return
-    u = User_request(id=1, date=datetime.utcnow(), req_name="java")
+    u = User_request(date=datetime.utcnow(), req_name=req)
     db.session.add(u)
-    request_id = User_request.query.filter_by(req_name=req).first().id
+    db.session.commit()
+    find_request = User_request.query.filter_by(req_name=req).first().id
     for datum in data:
-        rr = Request_result(id=item['question_id'],
-                            title=item['title'],
+        rr = Request_result(id=datum['question_id'],
+                            title=datum['title'],
                             last_activity_date=datetime.
-                                utcfromtimestamp(item["last_activity_date"],
-                            link=item["link"],
-                            request_id=request_id)
+                                utcfromtimestamp(datum["last_activity_date"]),
+                            link=datum["link"],
+                            request_id=find_request)
         db.session.add(rr)
     db.session.commit()
     

@@ -65,7 +65,8 @@ def stack_ex():
 def search_results():
     r = request.args.get("req")
     #new_results = results_2
-    new_results = Request_result.query.all()
+    find_request = User_request.query.filter_by(req_name=r).first().id
+    new_results = Request_result.query.filter_by(request_id=find_request)
     new_results = new_results[:25]
     return render_template('search_results.html',
                            results=new_results, request=r)
