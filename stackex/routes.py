@@ -61,9 +61,9 @@ def stack_ex():
     return render_template('new_request.html', title="New Request", form=form)
 
 
-@app.route('/search_results')
-def search_results():
-    r = request.args.get("req")
+@app.route('/search_results/<req>')
+def search_results(req):
+    r = req
     #new_results = results_2
     find_request = User_request.query.filter_by(req_name=r).first().id
     new_results = Request_result.query.filter_by(request_id=find_request)

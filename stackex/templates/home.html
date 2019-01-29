@@ -1,15 +1,15 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<form action="">
+<!-- <form action="">
   <select name="items">
     <option value="25">Отображать по 25</option>
     <option value="50">Отображать по 50</option>
     <option value="100">Отображать по 100</option>
    </select>
   <br><br>
-  <!--<input type="submit">-->
-</form>
+  <input type="submit">
+</form> -->
 <table class="table">
   <thead>
     <tr>
@@ -23,7 +23,7 @@
   	<tr>
   	  <td>{{ result.date }}</td>
       <td>{{ result.req_name }}</td>
-      <td>{{ result.description }}</td>
+      <td><a href="{{ url_for('search_results', req=result.req_name ) }}">Show results</a></td>
 	</tr>
 	{% endfor %}
 
