@@ -4,43 +4,6 @@ from stackex.models import User_request, Request_result
 from stackex.forms import NewRequestForm
 from stackex.funcs import stack_request
 
-results = [
-    {
-        "date": "12.10.2005",
-        "name": "python",
-        "description": "Here we talking about python"
-    },
-    {
-        "date": "27.02.2012",
-        "name": "javascript",
-        "description": "Isn't it the best?"
-    },
-    {
-        "date": "13.07.2010",
-        "name": "best language",
-        "description": "Of course you know the answer to that question"
-    }
-]
-
-results_2 = [
-    {
-        "last_activity_date": "13.03.17",
-        "title": "What is the best IDE",
-        "link": "www.dummy.com/1"
-    },
-    {
-        "last_activity_date": "25.06.14",
-        "title": "Python vs Java",
-        "link": "www.dummy.com/2"
-    },
-    {
-        "last_activity_date": "01.08.07",
-        "title": "Latest javascript framework",
-        "link": "www.dummy.com/3"
-    },
-]
-
-
 def req(url):
     request = requests.get(url)
     return request.content
@@ -64,9 +27,11 @@ def stack_ex():
 @app.route('/search_results/<req>')
 def search_results(req):
     r = req
+    page = request.args.get('page', 1, type=int)
     #new_results = results_2
     find_request = User_request.query.filter_by(req_name=r).first().id
-    new_results = Request_result.query.filter_by(request_id=find_request)
-    new_results = new_results[:25]
+    new_results = Request_result.query.filter_by(request_id=find_request).\
+        paginate(page=page, per_page=10)
+    # new_results = new_results[:25]
     return render_template('search_results.html',
                            results=new_results, request=r)
