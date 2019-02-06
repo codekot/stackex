@@ -29,5 +29,14 @@
 	{% endfor %}
 
   </tbody>
+  </table>
+  {% for page_num in results.iter_pages() %}
+    {% if page_num %}
+      <a class="btn btn-outline-info mb-4" href="{{ request.path }}?page={{ page_num }}">{{ page_num }}</a>
+    {% else %}
+      ...
+    {% endif %}
+  {% endfor %}
+  
 
 {% endblock  content %}
