@@ -3,6 +3,7 @@ from stackex import app, db
 from stackex.models import User_request, Request_result
 from stackex.forms import NewRequestForm
 from stackex.funcs import stack_request
+from stackex.handlers import page_not_found
 
 def req(url):
     request = requests.get(url)
