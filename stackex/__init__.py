@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_moment import Moment
 import configparser
 import os
 
@@ -26,6 +27,8 @@ app.config['SECRET_KEY'] = default_config['SECRET_KEY']
 app.config['SQLALCHEMY_DATABASE_URI'] = default_config[
     'SQLALCHEMY_DATABASE_URI']
 db = SQLAlchemy(app)
+
+moment = Moment(app)
 
 # this import is intentionally put here to avoid circular reference 
 from stackex import routes

@@ -22,7 +22,7 @@
   <tbody>
   	{% for result in results.items %}
   	<tr>
-  	  <td>{{ result.last_activity_date }}</td>
+  	  <td>{{ moment(result.last_activity_date).format('LLL') }}</td>
       <td>{{ result.title }}</td>
       <td><a href="{{ result.link }}">{{ result.link }}</a></td>
 	</tr>
