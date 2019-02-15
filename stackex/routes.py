@@ -29,11 +29,10 @@ def stack_ex():
 def search_results(req):
     r = req
     page = request.args.get('page', 1, type=int)
-    #new_results = results_2
+    per_page = request.args.get('per_page', 10, type=int)
     find_request = User_request.query.filter_by(req_name=r).first().id
     new_results = Request_result.query.filter_by(request_id=find_request)\
         .order_by(Request_result.last_activity_date.desc())\
-        .paginate(page=page, per_page=10)
-    # new_results = new_results[:25]
+        .paginate(page=page, per_page=per_page)
     return render_template('search_results.html',
                            results=new_results, request=r)
