@@ -36,3 +36,7 @@ def search_results(req):
         .paginate(page=page, per_page=per_page)
     return render_template('search_results.html',
                            results=new_results, request=r)
+
+@app.route('/delete_item/<item>')
+def delete(item):
+    pass
