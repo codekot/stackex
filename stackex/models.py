@@ -7,10 +7,15 @@ class User_request(db.Model):
     date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     req_name = db.Column(db.String(), unique=True, nullable=False)
     req_results = db.relationship('Request_result',
-                                  backref="on_request", lazy=True)
+                                  backref="on_request", lazy=True,
+                                  passive_deletes=True)
 
     def __repr__(self):
         return f"User_request('{self.req_name}', {self.date})"
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
 
 
 class Request_result(db.Model):
@@ -19,7 +24,7 @@ class Request_result(db.Model):
     last_activity_date = db.Column(db.DateTime, default=None)
     link = db.Column(db.Text())
     request_id = db.Column(db.Integer,
-                           db.ForeignKey('user_request.id'),
+                           db.ForeignKey('user_request.id', ondelete='CASCADE'),
                            nullable=False)
 
     def __repr__(self):
