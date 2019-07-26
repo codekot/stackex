@@ -1,6 +1,6 @@
 # stackex
 
-Web app for search on Stack Exchange
+Local web app for search on Stack Exchange
 
 - make request on API (done)
 - use flask (done)
