@@ -5,10 +5,6 @@ from stackex.forms import NewRequestForm
 from stackex.funcs import stack_request
 from stackex.handlers import page_not_found
 
-def req(url):
-    request = requests.get(url)
-    return request.content
-
 
 @app.route('/')
 def home():
@@ -27,16 +23,22 @@ def stack_ex():
 
 @app.route('/search_results/<req>')
 def search_results(req):
-    r = req
     page = request.args.get('page', 1, type=int)
     per_page = request.args.get('per_page', 10, type=int)
-    find_request = User_request.query.filter_by(req_name=r).first().id
+    find_request = User_request.query.filter_by(req_name=req).first()
+    if find_request:
+        find_request = find_request.id
+    else:
+        return render_template('search_results.html',
+                           results=[], request=req)
+
     new_results = Request_result.query.filter_by(request_id=find_request)\
         .order_by(Request_result.last_activity_date.desc())\
         .paginate(page=page, per_page=per_page)
     return render_template('search_results.html',
-                           results=new_results, request=r)
+                           results=new_results, request=req)
 
-@app.route('/delete_item/<item>')
-def delete(item):
-    pass
+@app.route('/delete_item/<id>')
+def delete(id):
+    User_request.find_by_id(id).delete()
+    return redirect(url_for('home'))

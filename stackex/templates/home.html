@@ -31,8 +31,8 @@
   	  <td>{{ moment(result.date).format('LLL') }}</td>
       <td>{{ result.req_name }}</td>
       <td><a href="{{ url_for('search_results', req=result.req_name ) }}">Show results</a></td>
-      <td><a href="">Delete</a></td>
-	</tr>
+      <td><a href="{{ url_for('delete', id=result.id) }}">Delete</a></td>
+    </tr>
 	{% endfor %}
 
   </tbody>

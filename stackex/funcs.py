@@ -46,7 +46,6 @@ def stack_request(req):
     r = requests.get(url, params=params)
     data=r.json()
     data=data['items']
-    print(data)
     if not data:
         return
     u = User_request(date=datetime.utcnow(), req_name=req)

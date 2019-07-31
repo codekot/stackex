@@ -13,6 +13,10 @@ class User_request(db.Model):
     def __repr__(self):
         return f"User_request('{self.req_name}', {self.date})"
 
+    @classmethod
+    def find_by_id(cls, id):
+        return cls.query.filter_by(id=id).first()
+
     def delete(self):
         db.session.delete(self)
         db.session.commit()

@@ -1,6 +1,10 @@
 {% extends "layout.html" %}
 {% block content %}
 
+{%if not results%}
+<h4> No results found on request "{{ request }}", please make <a href="{{ url_for('stack_ex') }}">new request</a></h4>
+
+{% else %}
 <h1>Request results on subject "{{ request }}"</h1>
 <!-- <form action="">
   <select name="items">
@@ -43,5 +47,6 @@
     {% endif %}
   {% endfor %}
   
+{% endif %}
 
 {% endblock  content %}
