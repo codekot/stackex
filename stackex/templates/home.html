@@ -10,6 +10,11 @@
   <br><br>
   <input type="submit">
 </form> -->
+
+{% if not results %}
+    <h2>No available results, please make <a href="{{ url_for('stack_ex') }}">new request</a></h2>
+{% else %}
+
 <table class="table">
   <thead>
     <tr>
@@ -19,6 +24,8 @@
     </tr>
   </thead>
   <tbody>
+    
+
   	{% for result in results %}
   	<tr>
   	  <td>{{ moment(result.date).format('LLL') }}</td>
@@ -30,6 +37,7 @@
 
   </tbody>
 </table>
+{% endif %}
 
 {% endblock  content %}
  

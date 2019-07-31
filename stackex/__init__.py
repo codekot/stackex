@@ -30,5 +30,7 @@ db = SQLAlchemy(app)
 
 moment = Moment(app)
 
+db.init_app(app)
+
 # this import is intentionally put here to avoid circular reference 
 from stackex import routes
