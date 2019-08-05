@@ -27,10 +27,11 @@ app.config['SECRET_KEY'] = default_config['SECRET_KEY']
 app.config['SQLALCHEMY_DATABASE_URI'] = default_config[
     'SQLALCHEMY_DATABASE_URI']
 db = SQLAlchemy(app)
-
 moment = Moment(app)
 
-db.init_app(app)
+@app.before_first_request
+def create_tables():
+    db.create_all()
 
 # this import is intentionally put here to avoid circular reference 
 from stackex import routes
