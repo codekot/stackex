@@ -8,7 +8,7 @@ class User_request(db.Model):
     req_name = db.Column(db.String(), unique=True, nullable=False)
     req_results = db.relationship('Request_result',
                                   backref="on_request", lazy=True,
-                                  passive_deletes=True)
+                                  cascade='all,delete')
 
     def __repr__(self):
         return f"User_request('{self.req_name}', {self.date})"
