@@ -42,3 +42,10 @@ def search_results(req):
 def delete(id):
     User_request.find_by_id(id).delete()
     return redirect(url_for('home'))
+
+@app.route('/update/<id>')
+def update(id):
+    request = User_request.find_by_id(id).req_name
+    fromdate = User_request.find_by_id(id).date
+    stack_request(req=request, fromdate=fromdate)
+    return redirect(url_for('home'))

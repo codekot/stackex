@@ -5,7 +5,7 @@ import requests
 from stackex import db
 
 
-def stack_request(req):
+def stack_request(req, fromdate=None):
     #global db
     url = "https://api.stackexchange.com/2.2/search"
     params = {
@@ -14,25 +14,23 @@ def stack_request(req):
         "intitle": req,
         "site": "stackoverflow"
     }
+    if fromdate:
+        params["fromdate"] = int(fromdate.timestamp())
     r = requests.get(url, params=params)
     data=r.json()
     data=data['items']
     if not data:
         return
-    u = User_request(date=datetime.utcnow(), req_name=req)
-    db.session.add(u)
+    user_request = User_request.find_by_name(req)
+    if user_request:
+        user_request.update_date()
+    else:
+        u = User_request(date=datetime.utcnow(), req_name=req)
+        db.session.add(u)
     db.session.commit()
-    find_request = User_request.query.filter_by(req_name=req).first().id
-    for datum in data:
-        rr = Request_result(id=datum['question_id'],
-                            title=datum['title'],
-                            last_activity_date=datetime.
-                                utcfromtimestamp(datum["last_activity_date"]),
-                            link=datum["link"],
-                            request_id=find_request)
-        db.session.add(rr)
-    db.session.commit()
-    
+    request_id = User_request.find_by_name(req).id
+    Request_result.write_data_to_db(data, request_id)
+
 
 if __name__ == '__main__':
     pass

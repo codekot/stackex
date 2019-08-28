@@ -17,9 +17,19 @@ class User_request(db.Model):
     def find_by_id(cls, id):
         return cls.query.filter_by(id=id).first()
 
+    @classmethod
+    def find_by_name(cls, name):
+        return cls.query.filter_by(req_name=name).first()
+
     def delete(self):
         db.session.delete(self)
         db.session.commit()
+
+    def unix_date(self):
+        pass
+
+    def update_date(self):
+        self.date = datetime.utcnow()
 
 
 class Request_result(db.Model):
@@ -33,3 +43,15 @@ class Request_result(db.Model):
 
     def __repr__(self):
         return f"Request_result('{self.title}', '{self.last_activity_date}', '{self.link}'"
+
+    @classmethod
+    def write_data_to_db(cls, data, request_id):
+        for datum in data:
+            rr = Request_result(id=datum['question_id'],
+                            title=datum['title'],
+                            last_activity_date=datetime.
+                                utcfromtimestamp(datum["last_activity_date"]),
+                            link=datum["link"],
+                            request_id=request_id)
+            db.session.add(rr)
+        db.session.commit()
