@@ -24,7 +24,7 @@ def stack_ex():
 @app.route('/search_results/<req>')
 def search_results(req):
     page = request.args.get('page', 1, type=int)
-    per_page = request.args.get('per_page', 10, type=int)
+    per_page = request.args.get('per_page', 25 , type=int)
     find_request = User_request.query.filter_by(req_name=req).first()
     if find_request:
         find_request = find_request.id

@@ -5,16 +5,17 @@
 <h4> No results found on request "{{ request }}", please make <a href="{{ url_for('stack_ex') }}">new request</a></h4>
 
 {% else %}
-<h1>Request results on subject "{{ request }}"</h1>
-<!-- <form action="">
-  <select name="items">
-    <option value="25">Отображать по 25</option>
-    <option value="50">Отображать по 50</option>
-    <option value="100">Отображать по 100</option>
-   </select>
-  <br><br> 
-  <input type="submit">
-</form>-->
+<div class="navbar">
+  <div>
+  <h1>Request results on subject "{{ request }}"</h1>
+  </div>
+  <div>
+    Отображать по:
+        <a class="btn btn-outline-info mb-4" href="{{ url_for('search_results', req=request, per_page=25, page=page_num) }}">25</a>
+        <a class="btn btn-outline-info mb-4" href="{{ url_for('search_results', req=request, per_page=50, page=page_num) }}">50</a>
+        <a class="btn btn-outline-info mb-4" href="{{ url_for('search_results', req=request, per_page=100, page=page_num) }}">100</a>
+  </div>
+</div>
 <table class="table">
   <thead>
     <tr>
@@ -37,10 +38,10 @@
   {% for page_num in results.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
     {% if page_num %}
       {% if results.page == page_num %}
-        <a class="btn btn-info mb-4" href="{{ url_for('search_results', req=request, page=page_num) }}">{{ page_num }}</a>
+        <a class="btn btn-info mb-4" href="{{ url_for('search_results', req=request, page=page_num, per_page=results.per_page) }}">{{ page_num }}</a>
       
       {% else %}
-        <a class="btn btn-outline-info mb-4" href="{{ url_for('search_results', req=request, page=page_num) }}">{{ page_num }}</a>
+        <a class="btn btn-outline-info mb-4" href="{{ url_for('search_results', req=request, page=page_num, per_page=results.per_page) }}">{{ page_num }}</a>
       {% endif %}
     {% else %}
       ...
