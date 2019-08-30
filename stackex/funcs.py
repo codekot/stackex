@@ -6,7 +6,6 @@ from stackex import db
 
 
 def stack_request(req, fromdate=None):
-    #global db
     url = "https://api.stackexchange.com/2.2/search"
     params = {
         "order": "desc",
@@ -25,9 +24,8 @@ def stack_request(req, fromdate=None):
     if user_request:
         user_request.update_date()
     else:
-        u = User_request(date=datetime.utcnow(), req_name=req)
-        db.session.add(u)
-    db.session.commit()
+        user_request = User_request(date=datetime.utcnow(), req_name=req)
+        user_request.save()
     request_id = User_request.find_by_name(req).id
     Request_result.write_data_to_db(data, request_id)
 
