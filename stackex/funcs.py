@@ -11,7 +11,8 @@ def stack_request(req, fromdate=None):
         "order": "desc",
         "sort": "activity",
         "intitle": req,
-        "site": "stackoverflow"
+        "site": "stackoverflow",
+        "pagesize": 100,
     }
     if fromdate:
         params["fromdate"] = int(fromdate.timestamp())
