@@ -59,3 +59,7 @@ class Request_result(db.Model):
                             request_id=request_id)
             db.session.add(rr)
         db.session.commit()
+
+    @classmethod
+    def find_by_id(cls, id):
+        return cls.query.filter_by(id=id).first()
