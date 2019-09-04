@@ -39,6 +39,7 @@ class User_request(db.Model):
 class Request_result(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(), nullable=False)
+    creation_date = db.Column(db.DateTime, default=None)
     last_activity_date = db.Column(db.DateTime, default=None)
     link = db.Column(db.Text())
     request_id = db.Column(db.Integer,
@@ -53,6 +54,8 @@ class Request_result(db.Model):
         for datum in data:
             rr = Request_result(id=datum['question_id'],
                             title=datum['title'],
+                            creation_date=datetime.
+                                utcfromtimestamp(datum["creation_date"]),
                             last_activity_date=datetime.
                                 utcfromtimestamp(datum["last_activity_date"]),
                             link=datum["link"],
