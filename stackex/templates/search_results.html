@@ -19,7 +19,8 @@
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">Date/Time</th>
+      <th scope="col">Last Activity</th>
+      <th scope="col">Created</th>
       <th scope="col">Title</th>
       <th scope="col">Link</th>
     </tr>
@@ -28,6 +29,7 @@
   	{% for result in results.items %}
   	<tr>
   	  <td>{{ moment(result.last_activity_date).format('LLL') }}</td>
+      <td>{{ moment(result.creation_date).format('LLL') }}</td>
       <td>{{ result.title }}</td>
       <td><a href="{{ result.link }}">{{ result.link }}</a></td>
 	</tr>

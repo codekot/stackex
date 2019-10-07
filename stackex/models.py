@@ -60,7 +60,7 @@ class Request_result(db.Model):
                                 utcfromtimestamp(datum["last_activity_date"]),
                             link=datum["link"],
                             request_id=request_id)
-            db.session.add(rr)
+            db.session.merge(rr)
         db.session.commit()
 
     @classmethod

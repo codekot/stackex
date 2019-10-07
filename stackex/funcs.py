@@ -4,21 +4,45 @@ from stackex.models import User_request, Request_result
 import requests
 from stackex import db
 
+def save_to_json(data):
+    with open('result.json', 'w') as fp:
+        json.dump(data, fp)
+    print("Data written in result.json")
+
+
+def get_data(parameters):
+    url = "https://api.stackexchange.com/2.2/search"
+    result = requests.get(url, params=parameters)
+
+    return result.json()
+
+def update_data(parameters):
+    result = []
+    if parameters["fromdate"]:
+        while True:
+            data = get_data(parameters)
+            result.extend(data["items"])
+            if not data["has_more"]:
+                break
+            parameters["page"] += 1
+    return result
+
 
 def stack_request(req, fromdate=None):
-    url = "https://api.stackexchange.com/2.2/search"
     params = {
         "order": "desc",
         "sort": "activity",
         "intitle": req,
         "site": "stackoverflow",
+        "page": 1,
         "pagesize": 100,
     }
     if fromdate:
         params["fromdate"] = int(fromdate.timestamp())
-    r = requests.get(url, params=params)
-    data=r.json()
-    data=data['items']
+        data = update_data(params)
+    else:
+        data = get_data(params)["items"]
+    print(data)
     if not data:
         return
     user_request = User_request.find_by_name(req)
