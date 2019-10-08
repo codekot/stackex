@@ -10,22 +10,24 @@ def save_to_json(data):
     print("Data written in result.json")
 
 
-def get_data(parameters):
+def make_request(parameters):
     url = "https://api.stackexchange.com/2.2/search"
     result = requests.get(url, params=parameters)
 
     return result.json()
 
-def update_data(parameters):
+def get_data(parameters):
     result = []
     if parameters["fromdate"]:
         while True:
-            data = get_data(parameters)
+            data = make_request(parameters)
             result.extend(data["items"])
             if not data["has_more"]:
                 break
             parameters["page"] += 1
-    return result
+        return result
+    else:
+        return make_request(parameters)["items"]
 
 
 def stack_request(req, fromdate=None):
@@ -36,13 +38,11 @@ def stack_request(req, fromdate=None):
         "site": "stackoverflow",
         "page": 1,
         "pagesize": 100,
-    }
+        }
     if fromdate:
         params["fromdate"] = int(fromdate.timestamp())
-        data = update_data(params)
-    else:
-        data = get_data(params)["items"]
-    print(data)
+    data = get_data(params)
+
     if not data:
         return
     user_request = User_request.find_by_name(req)
