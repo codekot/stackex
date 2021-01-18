@@ -2,7 +2,7 @@ import json
 from datetime import datetime
 from stackex.models import User_request, Request_result
 import requests
-from stackex import db
+
 
 def save_to_json(data):
     with open('result.json', 'w') as fp:
@@ -15,6 +15,7 @@ def make_request(parameters):
     result = requests.get(url, params=parameters)
 
     return result.json()
+
 
 def get_data(parameters):
     result = []

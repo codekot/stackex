@@ -1,9 +1,8 @@
-from flask import render_template, redirect, url_for, request, flash
-from stackex import app, db
+from flask import render_template, redirect, url_for, request
+from stackex import app
 from stackex.models import User_request, Request_result
 from stackex.forms import NewRequestForm
 from stackex.funcs import stack_request
-from stackex.handlers import page_not_found
 
 
 @app.route('/')
@@ -24,13 +23,14 @@ def stack_ex():
 @app.route('/search_results/<req>')
 def search_results(req):
     page = request.args.get('page', 1, type=int)
-    per_page = request.args.get('per_page', 25 , type=int)
+    per_page = request.args.get('per_page', 25, type=int)
     find_request = User_request.query.filter_by(req_name=req).first()
     if find_request:
         find_request = find_request.id
     else:
-        return render_template('search_results.html',
-                           results=[], request=req)
+        return render_template(
+            'search_results.html', results=[], request=req
+        )
 
     new_results = Request_result.query.filter_by(request_id=find_request)\
         .order_by(Request_result.last_activity_date.desc())\
@@ -38,10 +38,12 @@ def search_results(req):
     return render_template('search_results.html',
                            results=new_results, request=req)
 
+
 @app.route('/delete_item/<id>')
 def delete(id):
     User_request.find_by_id(id).delete()
     return redirect(url_for('home'))
+
 
 @app.route('/update/<id>')
 def update(id):

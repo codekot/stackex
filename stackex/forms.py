@@ -9,7 +9,7 @@ class NewRequestForm(FlaskForm):
     submit = SubmitField('Search')
 
     def validate_search(self, search):
-    	user_request = User_request.query.filter_by(req_name=search.data).first()
-    	print(user_request)
-    	if user_request:
-    		raise ValidationError('This request is already exist in database')
+        user_request = User_request.query.filter_by(req_name=search.data).first()
+        print(user_request)
+        if user_request:
+            raise ValidationError('This request is already exist in database')
