@@ -38,7 +38,8 @@ def stack_request(req, fromdate=None):
         "intitle": req,
         "site": "stackoverflow",
         "page": 1,
-        "pagesize": 100,
+        "pagesize": 3, #3 for development, 100 for production
+        "fromdate": fromdate
         }
     if fromdate:
         params["fromdate"] = int(fromdate.timestamp())
