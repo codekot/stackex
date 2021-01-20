@@ -38,7 +38,7 @@ def stack_request(req, fromdate=None):
         "intitle": req,
         "site": "stackoverflow",
         "page": 1,
-        "pagesize": 3, #3 for development, 100 for production
+        "pagesize": 100,
         "fromdate": fromdate
         }
     if fromdate:
